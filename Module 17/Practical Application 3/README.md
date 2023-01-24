@@ -1,6 +1,6 @@
 # PracApp3: Comparing Classifiers
 
-In this practical application, I compare the performance of 6 classifiers: [] on a dataset for marketing bank products over the telephone. 
+In this practical application, I compare the performance of 6 classifiers (Logistic Regression, Decision Tree, SVC-linear kernel, SVC-rbf kernel, K Neighbors and SGD Classifier) on a dataset for marketing bank products over the telephone. 
 
 Dataset [link](https://archive.ics.uci.edu/ml/datasets/bank+marketing). The data is from a Portugese banking institution and is a collection of the results of multiple marketing campaigns. [Article](CRISP-DM-BANK.pdf) for more info on data and features.
 
