@@ -26,7 +26,7 @@ Client:
 Related with the last contact of the current campaign:
 - 8 - contact: contact communication type (categorical: 'cellular','telephone')
 - 9 - month: last contact month of year (categorical: 'jan', 'feb', 'mar', ..., 'nov', 'dec')
-- 10 - day_of_week: last contact day of the week (categorical: 'mon','tue','wed','thu','fri')
+- 10 - day\_of\_week: last contact day of the week (categorical: 'mon','tue','wed','thu','fri')
 - 11 - duration: last contact duration, in seconds (numeric). Important note: this attribute highly affects the output target (e.g., if duration=0 then y='no'). Yet, the duration is not known before a call is performed. Also, after the end of the call y is obviously known. Thus, this input should only be included for benchmark purposes and should be discarded if the intention is to have a realistic predictive model.
 
 Outcomes:
@@ -63,16 +63,18 @@ Let's first perform a dummy classification to determine the baseline performance
 
 Clearly, there are far more 'no' than 'yes' -- 88.7\% of customers are not converted.
 
-![](Images/DummyClassiifier.png)
+![](Images/DummyClassifier.png)
 
 ### Feature Selection
 
 This section has become an aside; I attempted to perform some feature selection to decrease the computation time of certain models -- such as the rbf and poly SVCs.
 
 I did this first with the SGDClassifier. I chose to use elasticnet (L1 + L2) to impose a balanced regularization on the features. I sampled a loss surface with the regularization strength (alpha) and picked the best-performing classifier. This resulted in just 15 non-zero features. When applying this reduction to the dataset, however, downline model performance was affected to an order of roughly 10%.
+
 ![](FeatureSelection.png)
 
 Next, I attempted to reduce the dimensionality of the dataset by retaining just 90% of the feature variance. Again, this reduction affected model performance poorly.
+
 ![](Images/PCA.png)
 
 As a result, I decided simply to run the subsequent for subsequently smaller sampling ranges, manually.
@@ -101,7 +103,7 @@ Lastly, we perform feature permutation to inspect the individual features import
 
 ![](Images/FeatureImportance.png)
 
-### Conclusion
+### Findings
 
 This model can safely be employed with the expectation that the phone banking conversion rate will be improved by a factor of > 30%. This represents a concomitant efficiency improvement in worker hours ROI. The expanded dataset used to fit this model numbers 49 features --  a featurespace which is difficult to disentangle without this model. Thanks to the model, we now have the benefit of knowing that larger economic trends and seasonality have an effect on the efficiency of conversion.
 
