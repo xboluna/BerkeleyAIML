@@ -49,5 +49,3 @@ The model takes quite a while to fit and its progress is ongoing. The current it
 - Infrastructure.py : Holds a custom dataloader and wrapper for ResNet18 (inspired by my code for a [Captcha Breaker](https://github.com/CaptchaOCR/CNN))
 - run_fitting.py : Run the fit. Loads data, manages logs, etc.
 - ResultsAnalysis.ipynb : Will be included in next push.
-
-##### Contact and Further Information
