@@ -197,7 +197,7 @@ class nnModuleWrapper(nn.Module):
                     if correct_label == predicted_label: s_correct += 1
                     s_total += 1
 
-                    if correct_label == 3 & correct_label != predicted_label: fn_count += 1 
+                    if correct_label == 2 & correct_label != predicted_label: fn_count += 1 
                                     
                     # Log label comparison
                     logging.debug(f'Predicted: {predicted_label} -- Ground Truth: {correct_label}')
