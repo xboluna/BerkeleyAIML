@@ -169,7 +169,7 @@ class nnModuleWrapper(nn.Module):
 
         # Strings counter
         s_total = s_correct = 0
-        fn_count = 0
+        fn_count = pred_pos_count = 0
 
         # If we keep track of loss
         if criterion is not None: running_loss = 0.
@@ -197,7 +197,10 @@ class nnModuleWrapper(nn.Module):
                     if correct_label == predicted_label: s_correct += 1
                     s_total += 1
 
-                    if correct_label == 2 & correct_label != predicted_label: fn_count += 1 
+                    if correct_label == 2 or correct_label == 1:
+                        pred_pos_count += 1
+                        if predicted_label == 2 or predicted_label == 2: 
+                            fn_count += 1 
                                     
                     # Log label comparison
                     logging.debug(f'Predicted: {predicted_label} -- Ground Truth: {correct_label}')
@@ -218,7 +221,7 @@ class nnModuleWrapper(nn.Module):
         label_accuracy = s_correct / s_total
         logging.info(f'{len(testloader.dataset)} labels scanned')
         logging.info(f'Accuracy : {(100 * label_accuracy)}%')
-        logging.info(f'Number of False Negatives: {fn_count}; as a pctg of all labels {100 * fn_count / s_total}')
+        logging.info(f'Number of False Negatives: {fn_count}; as a pctg of all labels {100 * fn_count / pred_pos_count}')
         
         # Log loss
         if criterion is not None: logging.info(f'Epoch total validation loss {running_loss}')
