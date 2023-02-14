@@ -19,7 +19,7 @@ This project is developed with a social media platform in mind. For this reason,
 Primarily, we are interested in minimizing false negatives (NSFW images which are mislabelled as "neutral") while maintaining a high level of accuracy (not misclassifying images, in general).
 
 #### Data Sources
-We employ the use of a [https://github.com/alex000kim/nsfw_data_scraper](webscraper) to collect a wide corpus of NSFW and non-NSFW images. Due to computing constraints, we (for now) neglect to classify NSFW and non-NSFW drawings. We also subset the entire dataset, using ~70,000 of the available images (the entire dataset numbers ~100,000+).
+We employ the use of a [webscraper](https://github.com/alex000kim/nsfw_data_scraper) to collect a wide corpus of NSFW and non-NSFW images. Due to computing constraints, we (for now) neglect to classify NSFW and non-NSFW drawings. We also subset the entire dataset, using ~70,000 of the available images (the entire dataset numbers ~>100,000).
 
 This dataset is quite noisy (there are many misclassified labels). I chose not to manually parse through and clean this data, partially because there are so many images and partially because it's genuinely disconcerting to parse through so much NSFW content.
 
@@ -28,6 +28,8 @@ Many of the images were corrupted as they are datascraped raw from websites. I w
 #### Methodology
 In order to mitigate the effect of noise in the dataset, I adopted a relatively low learning rate and applied a number of transforms, including random-crop, rotation and flipping, in addition to normalization. This random transformation also allows for maximum learning on a (slightly) smaller dataset and provides some regularization.
 
+I made sure to split the dataset into three section: training, testing and validation. The testing portion is a very small subset which allows us to compute loss at each epoch. The validation set is reserved to compute the total accuracy of the dataset.
+
 I used ResNet18 with no pre-trained weights, and modified the input and output layers 3-channel RGB and 3-node mutually exclusive output, respectively.
 
 I used Cross Entropy as a the loss criterion, and opted for the Adam optimizer to improve efficiency over ordinary Stochastic Gradient Descent.
@@ -35,7 +37,11 @@ I used Cross Entropy as a the loss criterion, and opted for the Adam optimizer t
 I allowed for fitting to run for as many epochs as necessary until the validation error reached its minima and began to rise again. Though it may have been possible, it already took quite enough time for this to occur and I chose not to wait for the possibility of double descent.
 
 #### Results
-At the time of this push, I am continuing to fine-tune the model. I will update results here by Tuesday night.
+![ModelFitting.png](ModelFitting.png)
+The model takes quite a while to fit and its progress is ongoing. The current iteration achieves a 100% accuracy with identifying false negatives on the TEST dataset only. Validation will be performed once fine-tuning is complete. At which point, I will:
+
+- Calculate of a confusion matrix. This will allow us to determine the number of false negatives -- the metric we want to minimize most.
+- Though we softmax our prediction vector when calculating loss, we can test the activation of the other output nodes with different sample images, to test the viability of using a threshold in the "somewhat NSFW" node to identify difficult-to-classify content.
 
 #### Outline of project
 
