@@ -40,6 +40,7 @@ I allowed for fitting to run for as many epochs as necessary until the validatio
 Best possible baseline accuracy is assuming that all images are neutral (the bank for these images is much larger) which is roughly 60%.
 
 ![ModelFitting.png](ModelFitting.png)
+
 The model takes quite a while to fit and its progress is ongoing. The current iteration achieves 78.8% accuracy. The False Negative rate for identifying images that are at least "somewhat" NSFW is 29.4%. These preliminary results are further detailed in ResultsAnalysis.ipynb. Full validation will be performed once fine-tuning is complete. For the final submission, I will:
 
 - Calculate of a confusion matrix. This will allow us to determine the number of false negatives -- the metric we want to minimize most.
