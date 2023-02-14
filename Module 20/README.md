@@ -38,7 +38,7 @@ I allowed for fitting to run for as many epochs as necessary until the validatio
 
 #### Results
 ![ModelFitting.png](ModelFitting.png)
-The model takes quite a while to fit and its progress is ongoing. The current iteration achieves a 100% accuracy with identifying false negatives on the TEST dataset only. Validation will be performed once fine-tuning is complete. At which point, I will:
+The model takes quite a while to fit and its progress is ongoing. The current iteration achieves a 100% accuracy with identifying false negatives on the TEST dataset only. Some validation is shown in ResultsAnalysis.ipynb. Full validation will be performed once fine-tuning is complete. At which point, I will:
 
 - Calculate of a confusion matrix. This will allow us to determine the number of false negatives -- the metric we want to minimize most.
 - Though we softmax our prediction vector when calculating loss, we can test the activation of the other output nodes with different sample images, to test the viability of using a threshold in the "somewhat NSFW" node to identify difficult-to-classify content.

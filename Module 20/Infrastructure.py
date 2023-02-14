@@ -169,6 +169,7 @@ class nnModuleWrapper(nn.Module):
 
         # Strings counter
         s_total = s_correct = 0
+        fn_count = 0
 
         # If we keep track of loss
         if criterion is not None: running_loss = 0.
@@ -195,6 +196,8 @@ class nnModuleWrapper(nn.Module):
                     # Do the captchas match?
                     if correct_label == predicted_label: s_correct += 1
                     s_total += 1
+
+                    if correct_label == 3 & correct_label != predicted_label: fn_count += 1
                     
                                     
                 # Log label comparison
@@ -210,16 +213,21 @@ class nnModuleWrapper(nn.Module):
                     
                 # Log Accuracy
                 logging.debug(f'Running Label Accuracy: {100 * s_correct/s_total:.1f}')
+                logging.debug(f'Running number of False Negatives: {fn_count}')
 
         # Calculate results
         label_accuracy = s_correct / s_total
         logging.info(f'{len(testloader.dataset) * prediction.shape[0]} labels scanned')
-        logging.info(f'Accuracy : {(100 * label_accuracy):.1f}%')
+        logging.info(f'Accuracy : {(100 * label_accuracy)}%')
+        logging.info(f'Number of False Negatives: {fn_count}; as a pctg of all labels {100 * fn_count / s_total}')
         
         # Log loss
         if criterion is not None: logging.info(f'Epoch total validation loss {running_loss}')
 
-        return label_accuracy, running_loss
+        if criterion is None:
+            return label_accuracy
+        else:
+            return label_accuracy, running_loss
 
 class ResNetWrapper(nnModuleWrapper):
     # https://arxiv.org/pdf/1512.03385v1.pdf
