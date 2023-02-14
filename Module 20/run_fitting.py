@@ -57,9 +57,14 @@ def run():
         # Just reassign directories vals to the glob
         directories[label] = file_locations
 
-    
-    X = [ img for img in directories[label] for label in directories]
-    y = [ encode for encode in [LABELS[label]]*len(directories[label]) for label in directories ]
+
+    # Arrange dataset with 
+    X = []
+    for label in directories:
+        X+= directories[label]
+    y = []
+    for label in directories:
+        y+= [LABELS[label]] * len(directories[label])
 
     X_train, X_test, y_train, y_test = train_test_split( X, y, test_size = TEST_SIZE )
     X_test, X_val, y_test, y_val = train_test_split(X,y, test_size = 0.3)

@@ -37,6 +37,8 @@ I used Cross Entropy as a the loss criterion, and opted for the Adam optimizer t
 I allowed for fitting to run for as many epochs as necessary until the validation error reached its minima and began to rise again. Though it may have been possible, it already took quite enough time for this to occur and I chose not to wait for the possibility of double descent.
 
 #### Results
+Baseline accuracy is 1/3.
+
 ![ModelFitting.png](ModelFitting.png)
 The model takes quite a while to fit and its progress is ongoing. The current iteration achieves a 100% accuracy with identifying false negatives on the TEST dataset only. Some validation is shown in ResultsAnalysis.ipynb. Full validation will be performed once fine-tuning is complete. At which point, I will:
 

@@ -197,11 +197,10 @@ class nnModuleWrapper(nn.Module):
                     if correct_label == predicted_label: s_correct += 1
                     s_total += 1
 
-                    if correct_label == 3 & correct_label != predicted_label: fn_count += 1
-                    
+                    if correct_label == 3 & correct_label != predicted_label: fn_count += 1 
                                     
-                # Log label comparison
-                logging.debug(f'Predicted: {predicted_label} -- Ground Truth: {correct_label}')
+                    # Log label comparison
+                    logging.debug(f'Predicted: {predicted_label} -- Ground Truth: {correct_label}')
 
                 # Increment loss
                 if criterion is not None:
@@ -217,7 +216,7 @@ class nnModuleWrapper(nn.Module):
 
         # Calculate results
         label_accuracy = s_correct / s_total
-        logging.info(f'{len(testloader.dataset) * prediction.shape[0]} labels scanned')
+        logging.info(f'{len(testloader.dataset)} labels scanned')
         logging.info(f'Accuracy : {(100 * label_accuracy)}%')
         logging.info(f'Number of False Negatives: {fn_count}; as a pctg of all labels {100 * fn_count / s_total}')
         
